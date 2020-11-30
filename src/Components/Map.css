@@ -37,3 +37,9 @@
   font-size: 15px;
   margin-top: 5px;
 }
+
+.leaflet-div-icon {
+  background-color: transparent !important;
+  border: transparent !important;
+  cursor: grab;
+}

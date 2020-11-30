@@ -66,7 +66,7 @@ function App() {
         setMapZoom(data.countryInfo ? 4 : 2);
       });
   };
-  // console.log("from app.js", mapCenter, mapZoom);
+  // console.log(country);
 
   return (
     <div className="app">
@@ -110,6 +110,7 @@ function App() {
           />
         </div>
         <Map
+          country={country}
           casesType={casesType}
           countries={mapCountries}
           center={mapCenter}

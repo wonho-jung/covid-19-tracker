@@ -1,6 +1,19 @@
 import React from "react";
 import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
+import L from "leaflet";
+
+export const iconPerson = new L.Icon({
+  iconUrl: "https://www.flaticon.com/svg/static/icons/svg/67/67347.svg",
+  iconRetinaUrl: "https://www.flaticon.com/svg/static/icons/svg/67/67347.svg",
+  iconAnchor: null,
+  popupAnchor: null,
+  shadowUrl: null,
+  shadowSize: null,
+  shadowAnchor: null,
+  iconSize: new L.Point(20, 20),
+  className: "leaflet-div-icon",
+});
 
 const casesTypeColors = {
   cases: {
