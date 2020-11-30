@@ -5,17 +5,19 @@ import { MenuItem, Select, Card, CardContent } from "@material-ui/core";
 import InfoBox from "./Components/InfoBox";
 import Map from "./Components/Map";
 import Table from "./Components/Table";
-import { sortData } from "./util";
+import { prettyPrintStat, sortData } from "./util";
 import LineGraph from "./Components/LineGraph";
 import "leaflet/dist/leaflet.css";
+
 function App() {
   const [contries, setContries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
-  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -10.4796 });
+  const [mapZoom, setMapZoom] = useState(2);
   const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState("cases");
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((res) => res.json())
@@ -59,12 +61,12 @@ function App() {
         setMapCenter(
           data.countryInfo
             ? { lat: data.countryInfo.lat, lng: data.countryInfo.long }
-            : { lat: 34.80746, lng: -40.4796 }
+            : { lat: 34.80746, lng: -20.4796 }
         );
-        setMapZoom(data.countryInfo ? 5 : 3);
+        setMapZoom(data.countryInfo ? 4 : 2);
       });
   };
-  console.log("from app.js", mapCenter, mapZoom);
+  // console.log("from app.js", mapCenter, mapZoom);
 
   return (
     <div className="app">
@@ -89,22 +91,30 @@ function App() {
         </div>
         <div className="app__stats">
           <InfoBox
+            onClick={(e) => setCasesType("cases")}
             title="Coronavirus Cases"
-            cases={countryInfo.todayCases}
-            total={countryInfo.cases}
+            cases={prettyPrintStat(countryInfo.todayCases)}
+            total={prettyPrintStat(countryInfo.cases)}
           />
           <InfoBox
+            onClick={(e) => setCasesType("recovered")}
             title="Recovered"
-            cases={countryInfo.todayRecovered}
-            total={countryInfo.recovered}
+            cases={prettyPrintStat(countryInfo.todayRecovered)}
+            total={prettyPrintStat(countryInfo.recovered)}
           />
           <InfoBox
+            onClick={(e) => setCasesType("deaths")}
             title="Deaths"
-            cases={countryInfo.todayDeaths}
-            total={countryInfo.deaths}
+            cases={prettyPrintStat(countryInfo.todayDeaths)}
+            total={prettyPrintStat(countryInfo.deaths)}
           />
         </div>
-        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
+        <Map
+          casesType={casesType}
+          countries={mapCountries}
+          center={mapCenter}
+          zoom={mapZoom}
+        />
       </div>
       <Card className="app__right">
         <CardContent>
