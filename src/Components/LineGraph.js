@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+
 const options = {
   legend: {
     display: false,
@@ -15,7 +16,7 @@ const options = {
     mode: "index",
     intersect: false,
     callbacks: {
-      label: function (tooltipItem, data) {
+      label: function (tooltipItem) {
         return numeral(tooltipItem.value).format("+0,0");
       },
     },
@@ -36,7 +37,7 @@ const options = {
           display: false,
         },
         ticks: {
-          callback: function (value, index, values) {
+          callback: function (value) {
             return numeral(value).format("0a");
           },
         },
@@ -63,8 +64,25 @@ const buildChartData = (data, casesType) => {
   return chartData;
 };
 
-function LineGraph({ casesType = "cases" }) {
+function LineGraph({ casesType = "cases", ...props }) {
   const [data, setData] = useState({});
+  const datasets = {
+    cases: {
+      backgroundColor: "rgba(204, 16, 52, 0.5)",
+      borderColor: "#CC1034",
+      data: data,
+    },
+    recovered: {
+      backgroundColor: "rgba(125,215,29,0.5)",
+      borderColor: "#7dd71d",
+      data: data,
+    },
+    deaths: {
+      backgroundColor: "rgba(251,68,67,0.5)",
+      borderColor: "#fb4443",
+      data: data,
+    },
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,17 +97,11 @@ function LineGraph({ casesType = "cases" }) {
   }, [casesType]);
 
   return (
-    <div>
+    <div className={props.className}>
       {data?.length > 0 && (
         <Line
           data={{
-            datasets: [
-              {
-                backgroundColor: "rgba(204, 16, 52, 0.5)",
-                borderColor: "#CC1034",
-                data: data,
-              },
-            ],
+            datasets: [datasets[casesType]],
           }}
           options={options}
         />
