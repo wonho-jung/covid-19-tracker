@@ -1,7 +1,5 @@
 <h1>Cov-19 tracker !!!<h1/>
-  
+  Tracking cov-19 case in the world. every 3hour update with new data
               
-              Tracking cov-19 case in the world. you can see number of cov-19
-              case, Recovered, Deaths and every country. Use disease.sh Api,
-              leaflet (map),chart.js.
+
             
