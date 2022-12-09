@@ -26,7 +26,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/wonho-jung/wontify.git
+git clone https://github.com/wonho-jung/covid-19-tracker.git
 ```
 
 Go to the project directory
