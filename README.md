@@ -23,7 +23,28 @@
 - https://disease.sh/docs/
 
 
+## Installation
 
+```bash
+git clone https://github.com/wonho-jung/wontify.git
+```
+
+Go to the project directory
+
+```bash
+npm install
+# or
+yarn install
+```
+
+
+## Getting Started
+
+```bash
+npm start 
+# or
+yarn start
+```
               
 
             
